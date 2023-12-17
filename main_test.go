@@ -1,7 +1,7 @@
-package patients_test
+package main
 
 import (
-	"database/sql"
+	"bytes"
 	"encoding/json"
 	"errors"
 	"net/http"
@@ -10,88 +10,67 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
-
-	"your_app/patients"
 )
+func TestPostMethod(t *testing.T) {
+    // Switch to test mode so you don't get such noisy output
+    gin.SetMode(gin.TestMode)
 
-// MockDB defines the interface for our mock database
-type MockDB interface {
-	Query(string, ...interface{}) (*sql.Rows, error)
-	QueryRow(string, ...interface{}) *sql.Row
-	Exec(string, ...interface{}) (sql.Result, error)
+    // Setup your router, just like you did in your main function, and
+    // register your routes
+    r := gin.Default()
+    r.POST("/", PostMethod)
+
+    // Create the mock request you'd like to test. Make sure the second argument
+    // here is the same as one of the routes you defined in the router setup
+    // block!
+    req, err := http.NewRequest(http.MethodPost, "/", nil)
+    if err != nil {
+        t.Fatalf("Couldn't create request: %v\n", err)
+    }
+
+    // Create a response recorder so you can inspect the response
+    w := httptest.NewRecorder()
+
+    // Perform the request
+    r.ServeHTTP(w, req)
+    fmt.Println(w.Body)
+
+    // Check to see if the response was what you expected
+    if w.Code == http.StatusOK {
+        t.Logf("Expected to get status %d is same ast %d\n", http.StatusOK, w.Code)
+    } else {
+        t.Fatalf("Expected to get status %d but instead got %d\n", http.StatusOK, w.Code)
+    }
 }
 
-func TestGetPatients(t *testing.T) {
-	ctl := gomock.NewController(t)
-	defer ctl.Finish()
+func TestGetMethod(t *testing.T) {
+    // Switch to test mode so you don't get such noisy output
+    gin.SetMode(gin.TestMode)
 
-	mockDB := MockDB{}
-	patientsHandler := patients.GetPatients(mockDB)
+    // Setup your router, just like you did in your main function, and
+    // register your routes
+    r := gin.Default()
+    r.GET("/", GetMethod)
 
-	// Positive case: Mock successful query with valid patients
-	expectedPatients := []patients.Patient{{ID: 1, Name: "John Doe", Email: "john.doe@example.com", Status: "Active"}}
-	mockDB.EXPECT().Query(gomock.Eq("SELECT * FROM patients WHERE name != '' AND email != '' AND status != ''"), gomock.Nil()).Return(mockRows(expectedPatients), nil)
+    // Create the mock request you'd like to test. Make sure the second argument
+    // here is the same as one of the routes you defined in the router setup
+    // block!
+    req, err := http.NewRequest(http.MethodGet, "/", nil)
+    if err != nil {
+        t.Fatalf("Couldn't create request: %v\n", err)
+    }
 
-	req, _ := http.NewRequest("GET", "/", nil)
-	rec := httptest.NewRecorder()
-	patientsHandler(rec, req)
+    // Create a response recorder so you can inspect the response
+    w := httptest.NewRecorder()
 
-	assert.Equal(t, http.StatusOK, rec.Code)
+    // Perform the request
+    r.ServeHTTP(w, req)
+    fmt.Println(w.Body)
 
-	var actualPatients []patients.Patient
-	err := json.NewDecoder(rec.Body).Decode(&actualPatients)
-	assert.NoError(t, err)
-	assert.Equal(t, expectedPatients, actualPatients)
-
-	// Negative case: Mock error during query
-	mockDB.EXPECT().Query(gomock.Eq("SELECT * FROM patients WHERE name != '' AND email != '' AND status != ''"), gomock.Nil()).Return(nil, errors.New("mock error"))
-
-	req, _ = http.NewRequest("GET", "/", nil)
-	rec = httptest.NewRecorder()
-	patientsHandler(rec, req)
-
-	assert.Equal(t, http.StatusInternalServerError, rec.Code)
+    // Check to see if the response was what you expected
+    if w.Code == http.StatusOK {
+        t.Logf("Expected to get status %d is same ast %d\n", http.StatusOK, w.Code)
+    } else {
+        t.Fatalf("Expected to get status %d but instead got %d\n", http.StatusOK, w.Code)
+    }
 }
-
-func TestGetPatient(t *testing.T) {
-	ctl := gomock.NewController(t)
-	defer ctl.Finish()
-
-	mockDB := MockDB{}
-	patientHandler := patients.GetPatient(mockDB)
-
-	// Positive case: Mock successful query with valid patient
-	expectedPatient := patients.Patient{ID: 1, Name: "John Doe", Email: "john.doe@example.com", Status: "Active"}
-	mockDB.EXPECT().QueryRow(gomock.Eq("SELECT * FROM patients WHERE id = $1"), gomock.Eq(1)).Return(mockRow(expectedPatient), nil)
-
-	req, _ := http.NewRequest("GET", "/1", nil)
-	rec := httptest.NewRecorder()
-	patientHandler(rec, req)
-
-	assert.Equal(t, http.StatusOK, rec.Code)
-
-	var actualPatient patients.Patient
-	err := json.NewDecoder(rec.Body).Decode(&actualPatient)
-	assert.NoError(t, err)
-	assert.Equal(t, expectedPatient, actualPatient)
-
-	// Negative case: Mock error during query
-	mockDB.EXPECT().QueryRow(gomock.Eq("SELECT * FROM patients WHERE id = $1"), gomock.Eq(2)).Return(nil, errors.New("mock error"))
-
-	req, _ = http.NewRequest("GET", "/2", nil)
-	rec = httptest.NewRecorder()
-	patientHandler(rec, req)
-
-	assert.Equal(t, http.StatusInternalServerError, rec.Code)
-
-	// Negative case: Mock no rows found
-	mockDB.EXPECT().QueryRow(gomock.Eq("SELECT * FROM patients WHERE id = $1"), gomock.Eq(3)).Return(&sql.Row{}, sql.ErrNoRows)
-
-	req, _ = http.NewRequest("GET", "/3", nil)
-	rec = httptest.NewRecorder()
-	patientHandler(rec, req)
-
-	assert.Equal(t, http.StatusNotFound, rec.Code)
-}
-
-// ... Implement similar test cases for createPatient, updatePatient, and deletePatient functions ...
