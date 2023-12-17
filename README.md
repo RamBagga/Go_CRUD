@@ -1,15 +1,20 @@
 # ZopSmart_Task
 
-This document outlines the ZopSmart_Task REST API project, built using the robust GoFr framework. Powered by the reliable Postgres SQL database, the API offers persistent data storage and seamless functionality.
+## Problem Statement
+I have used a hospital's IPD as an example to perform CRUD operations with the following functionalities:
+- Add a record to DB when a patient arrives
+- See the list of patients currently in the hospital
+- Update the record in DB when a patient is waiting, being treated, 
+- Delete the record from DB when a patient leaves the hospital
 
 ## Technology Stack:
 
-Backend: GoFr
-Database: Postgres SQL
-Containerization: Docker
+*Backend*: GoFr<br>
+*Database*: Postgres SQL<br>
+*Containerization*: Docker
 ## Testing and Validation:
 
-All API functionalities have been thoroughly tested and validated using Postman. Access the collection for hands-on exploration: [Insert Postman collection link here].
+All API functionalities have been thoroughly tested and validated using Postman. Access the collection for hands-on exploration:
 ## Conclusion:
 
-The ZopSmart_Task REST API provides a powerful and efficient solution for managing data and building modern applications. With its robust technology stack and meticulous development, this API is poised to meet your data management needs with confidence.
+I
