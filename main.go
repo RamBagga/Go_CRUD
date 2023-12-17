@@ -36,7 +36,6 @@ func main() {
 	//create router
 	router := mux.NewRouter()
 	router.HandleFunc("/patients", getPatients(db)).Methods("GET")
-	router.HandleFunc("/patients/{id}", getPatient(db)).Methods("GET")
 	router.HandleFunc("/patients", createPatient(db)).Methods("POST")
 	router.HandleFunc("/patients/{id}", updatePatient(db)).Methods("PUT")
 	router.HandleFunc("/patients", deletePatient(db)).Methods("DELETE")
@@ -80,23 +79,6 @@ func getPatients(db *sql.DB) http.HandlerFunc {
 	}
 }
 
-// get user by id
-func getPatient(db *sql.DB) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		vars := mux.Vars(r)
-		id := vars["id"]
-
-		var u Patient
-		err := db.QueryRow("SELECT * FROM patients WHERE id = $1", id).Scan(&u.ID, &u.Name, &u.Email, &u.Status)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusNotFound)
-			return
-		}
-
-		json.NewEncoder(w).Encode(u)
-	}
-}
-
 // create user
 func createPatient(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -108,7 +90,7 @@ func createPatient(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		err := db.QueryRow("INSERT INTO patients (name, email,status) VALUES ($1, $2, $3) RETURNING id", u.Name, u.Email, u.Status).Scan(&u.ID)
+		err := db.QueryRow("INSERT INTO patients (name, email, status) VALUES ($1, $2, $3) RETURNING id", u.Name, u.Email, u.Status).Scan(&u.ID)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
