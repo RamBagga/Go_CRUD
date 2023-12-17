@@ -15,6 +15,4 @@ I have used a hospital's IPD as an example to perform CRUD operations with the f
 ## Testing and Validation:
 
 All API functionalities have been thoroughly tested and validated using Postman. Access the collection for hands-on exploration:
-## Conclusion:
 
-I
