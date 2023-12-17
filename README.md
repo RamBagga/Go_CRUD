@@ -4,8 +4,8 @@
 I have used a hospital's IPD as an example to perform CRUD operations with the following functionalities:
 - Add a record to DB when a patient arrives
 - See the list of patients currently in the hospital
-- Update the record in DB when a patient is waiting, being treated, 
-- Delete the record from DB when a patient leaves the hospital
+- Update the record in DB when a patient is waiting, being treated or even change the values in DB
+- Delete the record from DB when a patient leaves the hospital i.e Status="Completed"
 
 ## Technology Stack:
 
