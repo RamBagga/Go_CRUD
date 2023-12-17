@@ -55,7 +55,7 @@ func jsonContentTypeMiddleware(next http.Handler) http.Handler {
 // get all users
 func getPatients(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		rows, err := db.Query("SELECT * FROM patients")
+		rows, err := db.Query("SELECT * FROM patients WHERE name != '' AND email != '' AND status != ''")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -103,6 +103,11 @@ func createPatient(db *sql.DB) http.HandlerFunc {
 		var u Patient
 		json.NewDecoder(r.Body).Decode(&u)
 
+		if u.Name == "" || u.Email == "" || u.Status == "" {
+			http.Error(w, "Fields cannot be empty", http.StatusBadRequest)
+			return
+		}
+
 		err := db.QueryRow("INSERT INTO patients (name, email,status) VALUES ($1, $2, $3) RETURNING id", u.Name, u.Email, u.Status).Scan(&u.ID)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -118,6 +123,11 @@ func updatePatient(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var u Patient
 		json.NewDecoder(r.Body).Decode(&u)
+
+		if u.Name == "" || u.Email == "" || u.Status == "" {
+			http.Error(w, "Fields cannot be empty", http.StatusBadRequest)
+			return
+		}
 
 		vars := mux.Vars(r)
 		id := vars["id"]
@@ -136,12 +146,12 @@ func updatePatient(db *sql.DB) http.HandlerFunc {
 func deletePatient(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		_, err := db.Exec("DELETE FROM patients WHERE status = 'Completed'")
+		_, err := db.Exec("DELETE FROM patients WHERE name IS NULL AND email IS NULL AND status IS NULL OR status = 'Completed'")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
-		json.NewEncoder(w).Encode("Patients with status 'Completed' deleted")
+		json.NewEncoder(w).Encode("Patients with NULL fields or status 'Completed' deleted")
 	}
 }
