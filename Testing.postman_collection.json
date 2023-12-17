@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "7f21f2fd-0a7a-4d6b-a14b-5b978b005e4c",
+		"name": "Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31394778",
+		"_collection_link": "https://lively-comet-136197.postman.co/workspace/New-Team-Workspace~f78202a5-d125-441b-91de-dfcc63352fb9/collection/31394778-7f21f2fd-0a7a-4d6b-a14b-5b978b005e4c?action=share&source=collection_link&creator=31394778"
+	},
+	"item": [
+		{
+			"name": "Get the Initial DB",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "0.0.0.0:8000\\patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Post a Status=\"Completed\" ID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Sheril bagga\",\r\n    \"email\":\"sherilb@gmail.com\",\r\n    \"status\":\"Completed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Post a Status=\"Treatment\" ID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\":\"hero singh\",\r\n    \"Email\":\"herosingh@gmail.com\",\r\n    \"Status\":\"Treatment\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Post  a Status=\"Treatment\" ID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\":\"Rakshit Jain\",\r\n    \"Email\":\"rakshitj@gmail.com\",\r\n    \"Status\":\"Treatment\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Post a Status=\"Completed\" ID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\":\"Shubham sharma\",\r\n    \"Email\":\"SHubhams@gmail.com\",\r\n    \"Status\":\"Completed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Get the DB",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "DB after Deletion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Update the user 1 to Status=\"Completed\"",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\":\"Ram Bagga\",\r\n    \"Email\":\"rambagga@gmail.com\",\r\n    \"Status\":\"Completed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "0.0.0.0:8000/patients/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Updated DB",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete on Updated DB",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "The updated row gets deleted as the status=\"Completed\"",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Update to change name,email and status",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\":\"Rakshit Sharma\",\r\n    \"Email\":\"rakshits@gmail.com\",\r\n    \"Status\":\"Completed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "0.0.0.0:8000/patients/21"
+			},
+			"response": []
+		},
+		{
+			"name": "The DB is updated",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "Deleting the completed ",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		},
+		{
+			"name": "The final DB",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "0.0.0.0:8000/patients"
+			},
+			"response": []
+		}
+	]
+}
