@@ -15,6 +15,16 @@ I have used a hospital's IPD as an example to perform CRUD operations with the f
 ## Testing and Validation:
 
 All API functionalities have been thoroughly tested and validated using Postman. Access the collection for hands-on exploration: [https://lively-comet-136197.postman.co/workspace/New-Team-Workspace~f78202a5-d125-441b-91de-dfcc63352fb9/collection/31394778-7f21f2fd-0a7a-4d6b-a14b-5b978b005e4c?action=share&creator=31394778]
-<be>
+<br>
+## How To Run
+Your system should have Docker(To get the image of the Postgresql), and Go language installed
+To get the dependencies run the following in a terminal
+   - go get github.com/gorilla/mux"
+	 - go getgithub.com/lib/pq"
+In the terminal run
+   -go compose build
+   -go compose up go-app
+This will get the API active on localhost port:8000
+We can test the API on postman using the URL 0.0.0.0:8000\patients
 ### Unit Tests have also been created and tested for a coverage > 90% (All 4 CRUD functions GetPatients, CreatePatient, UpdatePatient, and DeletePatient have been Unit Tested). 
 
