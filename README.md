@@ -21,9 +21,11 @@ Your system should have Docker(To get the image of the Postgresql), and Go langu
 To get the dependencies run the following in a terminal
    - go get github.com/gorilla/mux"
 	 - go getgithub.com/lib/pq"
+<br>
 In the terminal run
    -go compose build
    -go compose up go-app
+    <br>
 This will get the API active on localhost port:8000
 We can test the API on postman using the URL 0.0.0.0:8000\patients
 ### Unit Tests have also been created and tested for a coverage > 90% (All 4 CRUD functions GetPatients, CreatePatient, UpdatePatient, and DeletePatient have been Unit Tested). 
