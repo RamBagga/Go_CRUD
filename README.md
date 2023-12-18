@@ -18,15 +18,15 @@ All API functionalities have been thoroughly tested and validated using Postman.
 <br>
 ## How To Run
 Your system should have Docker(To get the image of the Postgresql), and Go language installed
-To get the dependencies run the following in a terminal
-   - go get github.com/gorilla/mux"
+To get the dependencies run the following in a terminal<br>
+   - go get github.com/gorilla/mux"<br>
 	 - go getgithub.com/lib/pq"
 <br>
-In the terminal run
-   -go compose build
-   -go compose up go-app
+In the terminal run<br>
+   -go compose build<br>
+   -go compose up go-app<br>
     <br>
-This will get the API active on localhost port:8000
+This will get the API active on localhost port:8000<br>
 We can test the API on postman using the URL 0.0.0.0:8000\patients
 ### Unit Tests have also been created and tested for a coverage > 90% (All 4 CRUD functions GetPatients, CreatePatient, UpdatePatient, and DeletePatient have been Unit Tested). 
 
