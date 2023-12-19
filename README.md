@@ -23,8 +23,8 @@ To get the dependencies run the following in a terminal<br>
 	 - go getgithub.com/lib/pq"
 <br>
 In the terminal run<br>
-   -go compose build<br>
-   -go compose up go-app<br>
+   -docker compose build<br>
+   -docker compose up go-app<br>
     <br>
 This will get the API active on localhost port:8000<br>
 We can test the API on postman using the URL 0.0.0.0:8000\patients
