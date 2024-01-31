@@ -1,4 +1,4 @@
-# ZopSmart_Task
+# Go CRUD 
 
 ## Problem Statement
 I have used a hospital's IPD as an example to perform CRUD operations with the following functionalities:
